@@ -4,8 +4,17 @@ import com.mashape.unirest.http.JsonNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Utility class for parsing JSON responses and extracting conversion values.
+ */
 public class JsonUtils {
 
+    /**
+     * Retrieves the conversion value from a JSON response.
+     *
+     * @param body The JSON response body.
+     * @return The conversion value as a Double.
+     */
     public static Double getConversionValue(JsonNode body) {
         JSONArray array = body.getArray();
         if (array != null && array.length() > 0) {

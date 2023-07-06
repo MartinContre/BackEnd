@@ -2,7 +2,14 @@ package joptionpanes;
 
 import javax.swing.*;
 
+
+/**
+ * Main class for the application's main page and entry point.
+ */
 public class MainPane {
+    /**
+     * Displays the main page and allows the user to select a conversion type.
+     */
     public static void mainPage() {
         try {
             boolean shouldContinue = true;
@@ -15,20 +22,20 @@ public class MainPane {
                 );
 
                 switch (converter) {
-                    case "Divisas":
-                        CurrencyPane currencyPane = new CurrencyPane();
+                    case "Divisas" -> {
+                        new  CurrencyPane();
                         shouldContinue = false;
-                        break;
-                    case "Temperatura":
-                        TemperaturePane temperaturePane = new TemperaturePane();
+                    }
+                    case "Temperatura" -> {
+                        new TemperaturePane();
                         shouldContinue = false;
-                        break;
-                    case "Longitud":
-                        LengthPane lengthPane = new LengthPane();
+                    }
+                    case "Longitud" -> {
+                        new LengthPane();
                         shouldContinue = false;
-                        break;
-                    default:
-                        break;
+                    }
+                    default -> {
+                    }
                 }
             } while (shouldContinue);
         } catch (NullPointerException e) {

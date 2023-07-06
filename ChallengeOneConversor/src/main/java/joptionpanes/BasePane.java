@@ -1,12 +1,21 @@
 package joptionpanes;
 
+import models.Conversion;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.JsonReader;
 import util.JsonReaderUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
+
+/**
+ * Abstract base class for creating custom panes with common components and functionality.
+ */
 public abstract class BasePane extends JFrame {
+    private static final Logger logger = LogManager.getLogger(BasePane.class);
     private static final JsonReader jsonReader = JsonReaderUtils.getConversionDataFile();
     protected JButton closeButton;
     protected JButton backButton;
@@ -16,6 +25,13 @@ public abstract class BasePane extends JFrame {
     protected JButton convertButton;
     protected JButton clearButton;
 
+    /**
+     * Creates a new instance of the BasePane class.
+     *
+     * @param title The title of the pane.
+     * @param width The width of the pane.
+     * @param key The key for retrieving unit values from the JSON reader.
+     */
     public BasePane(String title, int width, String key) {
         createComponents();
         addComponents();
@@ -39,7 +55,7 @@ public abstract class BasePane extends JFrame {
         valueTextField = new JTextField(10);
         currentCurrencyComboBox = new JComboBox<>();
         targetCurrencyComboBox = new JComboBox<>();
-        convertButton = new JButton("convertir");
+        convertButton = new JButton("Convertir");
         clearButton = new JButton("Limpiar");
     }
 
@@ -87,41 +103,52 @@ public abstract class BasePane extends JFrame {
     }
 
     protected void convert() {
-        String currentValue = valueTextField.getText();
-        String currentMeasure = (String) currentCurrencyComboBox.getSelectedItem();
-        String targetMeasure = (String) targetCurrencyComboBox.getSelectedItem();
+        Conversion conversion = new Conversion();
+        conversion.setInitialValue(Double.parseDouble(valueTextField.getText()));
+        conversion.setCurrentUnit((String) Objects.requireNonNull(currentCurrencyComboBox.getSelectedItem()));
+        conversion.setTargetUnit((String) Objects.requireNonNull(targetCurrencyComboBox.getSelectedItem()));
 
-        if (!currentValue.isEmpty() && currentMeasure != null && targetMeasure != null) {
+        if (conversion.getInitialValue() != 0) {
             try {
-                double value = Double.parseDouble(currentValue);
-                String resultMessage = getConvert(value, currentMeasure, targetMeasure);
+                String resultMessage = getConversion(conversion);
                 JOptionPane.showMessageDialog(null, resultMessage);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un valor numérico válido.");
+                logger.error(String.format("Invalid numeric value entered: %s", conversion.getInitialValue()));
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Seleccione otra opción de longitud objetivo");
+                JOptionPane.showMessageDialog(null, "Seleccione otra opción de conversion objetivo");
+                logger.error(String.format("Invalid target unit selected: %s", conversion.getTargetUnit()));
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un valor a convertir.");
+            logger.error("Conversion input values are missing.");
         }
     }
-    protected abstract String getConvert(double value, String currentMeasure, String  targetMeasure);
+
+    protected abstract String getConversion(Conversion conversion);
 
     protected void clearFields() {
+        logger.info("Clearing fields");
         valueTextField.setText("");
     }
 
     protected void showMainPane() {
+        logger.info("Returning to the main page.");
         dispose();
         MainPane.mainPage();
     }
 
     protected void exitApplication() {
+        logger.info("Exiting the application.");
         System.exit(0);
     }
 
     protected static String[] getUnitValues(String key) {
-        return jsonReader.getValues(key);
+        String[] values = jsonReader.getValues(key);
+        if (values.length == 0) {
+            logger.error("No unit values found for key: {}", key);
+        }
+        return values;
     }
 
     protected void setRandomComboBoxValue(String key) {
@@ -144,5 +171,7 @@ public abstract class BasePane extends JFrame {
 
             targetCurrencyComboBox.setSelectedIndex(randomIndex);
         }
+        logger.info(String.format("Randomly selected unit values for key: %s", key));
+
     }
 }

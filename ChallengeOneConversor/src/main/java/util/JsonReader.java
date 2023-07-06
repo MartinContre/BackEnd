@@ -5,14 +5,27 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import exception.KeynotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Utility class for reading JSON files and retrieving values.
+ */
 public class JsonReader {
+    private static final Logger logger = LogManager.getLogger(JsonReader.class);
+
     private JsonObject jsonObject;
+
+    /**
+     * Creates a new instance of the JsonReader class.
+     *
+     * @param filePath The path to the JSON file.
+     */
     public JsonReader(String filePath) {
         File file = new File(filePath);
 
@@ -28,9 +41,18 @@ public class JsonReader {
             Object obj = parser.parse(reader);
             jsonObject = (JsonObject) obj;
         } catch (IOException e) {
+            logger.error("Ocurrió una excepción al leer el archivo JSON", e);
             e.printStackTrace();
         }
     }
+
+    /**
+     * Retrieves an array of values associated with the given key from the JSON object.
+     *
+     * @param key The key for retrieving the values.
+     * @return An array of values.
+     * @throws IllegalStateException if the JSON file has not been loaded.
+     */
     public String[] getValues(String key) {
         try {
             if (jsonObject == null) {
@@ -55,18 +77,27 @@ public class JsonReader {
             }
 
             throw new KeynotFoundException("El valor de la clave no es un arreglo en el archivo JSON: " + key);
-        } catch (IllegalStateException e) {
-            // Manejar la excepción de archivo JSON no cargado
-            System.err.println(e.getMessage());
-            return new String[0]; // Retorna un arreglo vacío en caso de error
-        } catch (KeynotFoundException e) {
-            // Manejar la excepción de clave no encontrada
-            System.err.println(e.getMessage());
-            return new String[0]; // Retorna un arreglo vacío en caso de error
+        } catch (IllegalStateException | KeynotFoundException e) {
+            logger.error("Ocurrió una excepción al leer el archivo JSON", e);
+            return new String[0];
         }
     }
 
+    /**
+     * Retrieves the value associated with the given key from the JSON object.
+     *
+     * @param key The key for retrieving the value.
+     * @return The value as a string.
+     */
     public String getValue(String key) {
-        return jsonObject.get(key).getAsString();
+        JsonElement element = jsonObject.get(key);
+        if (element == null) {
+            try {
+                throw new KeynotFoundException("La clave no se encuentra en el archivo JSON: " + key);
+            } catch (KeynotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return element.getAsString();
     }
 }
