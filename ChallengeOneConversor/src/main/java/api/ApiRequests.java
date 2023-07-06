@@ -8,7 +8,7 @@ import org.apache.http.HttpStatus;
 
 public abstract class ApiRequests {
     private static final String BASE_URL = "https://v6.exchangerate-api.com/v6";
-    private static final String API_KEY = "431d617fb2aa878aa87e2f28";
+    private static final String API_KEY = "";
     protected static HttpResponse<JsonNode> get(String endPoint) {
         String url = String.format("%s/%s/pair/%s", BASE_URL, API_KEY, endPoint);
         HttpResponse<JsonNode> response;
