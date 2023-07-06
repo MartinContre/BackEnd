@@ -5,10 +5,13 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.http.HttpStatus;
+import util.JsonReader;
+import util.JsonReaderUtils;
 
 public abstract class ApiRequests {
-    private static final String BASE_URL = "https://v6.exchangerate-api.com/v6";
-    private static final String API_KEY = "";
+    static JsonReader jsonReader = JsonReaderUtils.getConfigDataFile();
+    private static final String BASE_URL = jsonReader.getValue("URL");
+    private static final String API_KEY = jsonReader.getValue("API_KEY");
     protected static HttpResponse<JsonNode> get(String endPoint) {
         String url = String.format("%s/%s/pair/%s", BASE_URL, API_KEY, endPoint);
         HttpResponse<JsonNode> response;
@@ -19,10 +22,6 @@ public abstract class ApiRequests {
         }
 
         return checkStatus(response);
-    }
-
-    public static String getURL(String current, String target, double amount) {
-        return String.format("%s/%s/pair/%s/%s/%s", BASE_URL, API_KEY, current, target, amount);
     }
 
     private static HttpResponse<JsonNode> checkStatus(HttpResponse<JsonNode> response) {

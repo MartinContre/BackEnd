@@ -1,5 +1,5 @@
 {
-  "currency":
+  "Currency":
   [
     "AED United Arab Emirates Dirham",
     "AFN Afghan Afghani",
@@ -172,16 +172,17 @@
     "ZMW Zambian Kwacha",
     "ZWL Zimbabwean Dollar"
   ],
-  "temperature": [
+  "Temperature": [
     "Celsius",
     "Fahrenheit",
     "Kelvin",
     "Rankine"
   ],
-  "length": [
-    "Kilometro",
-    "Metro",
-    "Milla",
-    "Foot"
+  "Length": [
+    "km",
+    "m",
+    "mi",
+    "ft",
+    "in"
   ]
 }

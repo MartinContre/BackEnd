@@ -1,20 +1,19 @@
 package joptionpanes;
 
-import util.JsonReader;
+import conversor.Converter;
+import util.NumberUtils;
 
-import javax.swing.*;
+public class LengthPane extends BasePane {
+    private static final String LENGTH_KEY = "Length";
 
-public class LengthPane extends BasePane{
     public LengthPane() {
-        super("Conversor de longitud", 400);
-        String[] lengths = JsonReader.getValue("length");
-        currentCurrencyComboBox.setModel(new DefaultComboBoxModel<>(lengths));
-        targetCurrencyComboBox.setModel(new DefaultComboBoxModel<>(lengths));
+        super("Conversor de longitud", 400, LENGTH_KEY);
     }
 
     @Override
-    protected void convert() {
-        String currentValue = valueTextField.getText();
-
+    protected String getConvert(double value, String currentMeasure, String targetMeasure) {
+        String convertedValue = Converter.getConvertedLength(value, currentMeasure, targetMeasure);
+        String initialValue = NumberUtils.numberFormat(value);
+        return String.format("%s %s es igual a %s %s", initialValue, currentMeasure, convertedValue, targetMeasure);
     }
 }
