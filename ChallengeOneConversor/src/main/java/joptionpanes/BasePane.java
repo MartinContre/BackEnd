@@ -15,7 +15,7 @@ import java.util.Objects;
  * Abstract base class for creating custom panes with common components and functionality.
  */
 public abstract class BasePane extends JFrame {
-    private static final Logger logger = LogManager.getLogger(BasePane.class);
+    protected static final Logger logger = LogManager.getLogger(BasePane.class);
     private static final JsonReader jsonReader = JsonReaderUtils.getConversionDataFile();
     protected JButton closeButton;
     protected JButton backButton;

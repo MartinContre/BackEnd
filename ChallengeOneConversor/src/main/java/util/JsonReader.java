@@ -41,7 +41,7 @@ public class JsonReader {
             Object obj = parser.parse(reader);
             jsonObject = (JsonObject) obj;
         } catch (IOException e) {
-            logger.error("Ocurrió una excepción al leer el archivo JSON", e);
+            logger.error(String.format("An exception occurred while reading the JSON file. Exception: %s", e));
             e.printStackTrace();
         }
     }
@@ -78,7 +78,7 @@ public class JsonReader {
 
             throw new KeynotFoundException("El valor de la clave no es un arreglo en el archivo JSON: " + key);
         } catch (IllegalStateException | KeynotFoundException e) {
-            logger.error("Ocurrió una excepción al leer el archivo JSON", e);
+            logger.error(String.format("An exception occurred while reading the JSON file. Exception: %s", e));
             return new String[0];
         }
     }

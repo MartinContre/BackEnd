@@ -26,7 +26,7 @@ public class ApiUtils extends ApiRequests {
         try {
             return NumberUtils.numberFormat(JsonUtils.getConversionValue(response.getBody()));
         } catch (Exception e) {
-            logger.error("Error al obtener el resultado de la conversión de la API", e);
+            logger.error(String.format("Error retrieving conversion result from API message error: %s", e.getMessage()));
             throw e;
         }    }
 }

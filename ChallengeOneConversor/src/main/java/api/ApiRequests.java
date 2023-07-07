@@ -33,7 +33,7 @@ public abstract class ApiRequests {
         try {
             response = Unirest.get(url).asJson();
         } catch (UnirestException e) {
-            logger.error(String.format("Error al realizar la solicitud GET a la URL: %s", url));
+            logger.error(String.format("Error performing GET request to URL: %s", url));
             throw new RuntimeException(e.getMessage());
         }
 
@@ -46,7 +46,7 @@ public abstract class ApiRequests {
             return response;
         }
         else {
-            logger.error(String.format("La respuesta HTTP contiene un estado no válido: %s", response.getBody().toString()));
+            logger.error(String.format("The HTTP response contains an invalid status: %s", response.getBody().toString()));
             throw new IllegalArgumentException(response.getBody().toString());
         }
     }
