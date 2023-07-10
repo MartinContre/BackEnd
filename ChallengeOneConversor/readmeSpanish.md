@@ -22,8 +22,6 @@ Este proyecto en Java te permite realizar conversiones de unidades en tres categ
   ```
   Reemplaza TU_CLAVE_DE_API con tu clave de API obtenida de ExchangeRate-API.
 
-Reemplaza TU_CLAVE_API con tu clave de API obtenida de ExchangeRate-API.
-
 ## Requisitos del Sistema
 - Java JDK 8 o superior.
 
