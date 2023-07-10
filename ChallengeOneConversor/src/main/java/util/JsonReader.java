@@ -36,9 +36,8 @@ public class JsonReader {
                 throw new RuntimeException(e);
             }
         }
-        JsonParser parser = new JsonParser();
         try (FileReader reader = new FileReader(filePath)){
-            Object obj = parser.parse(reader);
+            Object obj = JsonParser.parseReader(reader);
             jsonObject = (JsonObject) obj;
         } catch (IOException e) {
             logger.error(String.format("An exception occurred while reading the JSON file. Exception: %s", e));
