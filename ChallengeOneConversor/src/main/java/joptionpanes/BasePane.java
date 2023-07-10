@@ -15,15 +15,39 @@ import java.util.Objects;
  * Abstract base class for creating custom panes with common components and functionality.
  */
 public abstract class BasePane extends JFrame {
+    /**
+     * The logger for logging events and messages related to the BasePane class.
+     */
     protected static final Logger logger = LogManager.getLogger(BasePane.class);
     private static final JsonReader jsonReader = JsonReaderUtils.getConversionDataFile();
+    /**
+     * The close button for the currency converter window.
+     */
     protected JButton closeButton;
+    /**
+     * The back button for navigating to the previous screen.
+     */
     protected JButton backButton;
-    protected JTextField valueTextField;
-    protected JComboBox<String> currentCurrencyComboBox;
-    protected JComboBox<String> targetCurrencyComboBox;
+    /**
+     * The convert button for initiating the currency conversion process.
+     */
     protected JButton convertButton;
+    /**
+     * The clear button for resetting the input fields.
+     */
     protected JButton clearButton;
+    /**
+     * The combo box for selecting the current currency.
+     */
+    protected JComboBox<String> currentCurrencyComboBox;
+    /**
+     * The combo box for selecting the target currency.
+     */
+    protected JComboBox<String> targetCurrencyComboBox;
+    /**
+     * The text field for entering the value to be converted in the currency converter.
+     */
+    protected JTextField valueTextField;
 
     /**
      * Creates a new instance of the BasePane class.
@@ -49,6 +73,9 @@ public abstract class BasePane extends JFrame {
         targetCurrencyComboBox.addActionListener(new CurrencyComboBoxListener(targetCurrencyComboBox, currentCurrencyComboBox));
     }
 
+    /**
+     * Creates the components required for the currency converter window.
+     */
     protected void createComponents() {
         closeButton = new JButton("Cerrar");
         backButton = new JButton("Atras");
@@ -59,6 +86,9 @@ public abstract class BasePane extends JFrame {
         clearButton = new JButton("Limpiar");
     }
 
+    /**
+     * Adds the components to the currency converter window.
+     */
     protected void addComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -92,6 +122,9 @@ public abstract class BasePane extends JFrame {
         add(backButton, gbc);
     }
 
+    /**
+     * Sets up the listeners for the currency converter buttons.
+     */
     protected void setupListeners() {
         convertButton.addActionListener(e -> convert());
 
@@ -102,6 +135,9 @@ public abstract class BasePane extends JFrame {
         backButton.addActionListener(e -> showMainPane());
     }
 
+    /**
+     * Initiates the conversion process.
+     */
     protected void convert() {
         Conversion conversion = new Conversion();
         conversion.setInitialValue(Double.parseDouble(valueTextField.getText()));
@@ -125,24 +161,45 @@ public abstract class BasePane extends JFrame {
         }
     }
 
+    /**
+     * Retrieves the conversion result for the given Conversion object.
+     *
+     * @param conversion The Conversion object representing the conversion details.
+     * @return The conversion result as a string.
+     */
     protected abstract String getConversion(Conversion conversion);
 
+    /**
+     * Clears the input fields.
+     */
     protected void clearFields() {
         logger.info("Clearing fields");
         valueTextField.setText("");
     }
 
+    /**
+     * Returns to the main page.
+     */
     protected void showMainPane() {
         logger.info("Returning to the main page.");
         dispose();
         MainPane.mainPage();
     }
 
+    /**
+     * Exits the application.
+     */
     protected void exitApplication() {
         logger.info("Exiting the application.");
         System.exit(0);
     }
 
+    /**
+     * Retrieves the unit values associated with the given key.
+     *
+     * @param key The key used to retrieve the unit values.
+     * @return An array of unit values.
+     */
     protected static String[] getUnitValues(String key) {
         String[] values = jsonReader.getValues(key);
         if (values.length == 0) {
@@ -151,6 +208,12 @@ public abstract class BasePane extends JFrame {
         return values;
     }
 
+
+    /**
+     * Sets a random value for the combo boxes associated with the given key.
+     *
+     * @param key The key used to retrieve the unit values.
+     */
     protected void setRandomComboBoxValue(String key) {
         String[] values = getUnitValues(key);
         currentCurrencyComboBox.setModel(new DefaultComboBoxModel<>(values));
