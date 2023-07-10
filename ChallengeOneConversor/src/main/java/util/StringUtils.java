@@ -22,5 +22,6 @@ public class StringUtils {
         }
         String modifiedString = str.substring(0, 3);
         logger.info("Modified string: " + modifiedString);
-        return modifiedString;    }
+        return modifiedString;
+    }
 }

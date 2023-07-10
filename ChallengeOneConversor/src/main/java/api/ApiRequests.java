@@ -44,8 +44,7 @@ public abstract class ApiRequests {
         int statusCode = response.getStatus();
         if (statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES) {
             return response;
-        }
-        else {
+        } else {
             logger.error(String.format("The HTTP response contains an invalid status: %s", response.getBody().toString()));
             throw new IllegalArgumentException(response.getBody().toString());
         }

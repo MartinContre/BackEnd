@@ -1,6 +1,8 @@
 package util;
 
 import com.mashape.unirest.http.JsonNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,6 +10,7 @@ import org.json.JSONObject;
  * Utility class for parsing JSON responses and extracting conversion values.
  */
 public class JsonUtils {
+    private static final Logger logger = LogManager.getLogger(JsonUtils.class);
 
     /**
      * Retrieves the conversion value from a JSON response.
@@ -16,13 +19,19 @@ public class JsonUtils {
      * @return The conversion value as a Double.
      */
     public static Double getConversionValue(JsonNode body) {
-        JSONArray array = body.getArray();
-        if (array != null && array.length() > 0) {
-            JSONObject obj = array.getJSONObject(0);
-            return obj.getDouble("conversion_result");
-        }
 
-        JSONObject obj = body.getObject();
-        return obj.getDouble("conversion_result");
+        if (body != null) {
+            JSONArray jsonArray = body.getArray();
+            if (jsonArray != null && jsonArray.length() > 0) {
+                return jsonArray.getJSONObject(0).getDouble("conversion_result");
+            } else {
+                JSONObject jsonObject = body.getObject();
+                if (jsonObject != null) {
+                    return jsonObject.getDouble("conversion_result");
+                }
+            }
+        }
+        logger.error("Invalid JSON response body or missing conversion_result field");
+        return null;
     }
 }

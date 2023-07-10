@@ -36,7 +36,7 @@ public class JsonReader {
                 throw new RuntimeException(e);
             }
         }
-        try (FileReader reader = new FileReader(filePath)){
+        try (FileReader reader = new FileReader(filePath)) {
             Object obj = JsonParser.parseReader(reader);
             jsonObject = (JsonObject) obj;
         } catch (IOException e) {

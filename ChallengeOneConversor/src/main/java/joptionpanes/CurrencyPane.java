@@ -28,11 +28,15 @@ public class CurrencyPane extends BasePane {
     protected String getConversion(Conversion conversion) {
         conversion.setCurrentUnit(StringUtils.deleteAllExceptFirstThree(conversion.getCurrentUnit()));
         conversion.setTargetUnit(StringUtils.deleteAllExceptFirstThree(conversion.getTargetUnit()));
-        logger.info(String.format("Performing currency conversion for %s %s to %s",conversion.getInitialValue(), conversion.getCurrentUnit(), conversion.getTargetUnit()));
+        logger.info(String.format("Performing currency conversion for %s %s to %s",
+                conversion.getInitialValue(), conversion.getCurrentUnit(), conversion.getTargetUnit())
+        );
         conversion.setConvertedValue(ApiUtils.getConversionResultFromRequest(conversion));
         String initialValue = NumberUtils.numberFormat(conversion.getInitialValue());
 
-        String result = String.format("%s %s es igual a %s %s", initialValue, conversion.getCurrentUnit(), conversion.getConvertedValue(), conversion.getTargetUnit());
+        String result = String.format("%s %s es igual a %s %s",
+                initialValue, conversion.getCurrentUnit(), conversion.getConvertedValue(), conversion.getTargetUnit()
+        );
         logger.info(result);
         return result;
     }

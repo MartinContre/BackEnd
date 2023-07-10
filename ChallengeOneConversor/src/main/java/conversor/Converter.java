@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.NumberUtils;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  * Class that provides methods for converting temperatures and lengths.

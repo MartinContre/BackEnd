@@ -2,7 +2,7 @@ import joptionpanes.MainPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  * Main class for the application's entry point.
