@@ -1,5 +1,11 @@
 # Proyecto de Conversión de Unidades
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.google.code.gson/gson.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.google.code.gson/gson)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mashape.unirest/unirest-java.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mashape.unirest/unirest-java)
+[![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.projectlombok/lombok)
+[![Maven Central](https://img.shields.io/maven-central/v/org.projectlombok/lombok.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.projectlombok/lombok)
+
+
 Este proyecto en Java te permite realizar conversiones de unidades en tres categorías: Divisas, Temperatura y Longitud. Proporciona una interfaz gráfica de usuario para seleccionar el tipo de conversión y realizar las conversiones de manera interactiva.
 
 ## Características
@@ -17,10 +23,10 @@ Este proyecto en Java te permite realizar conversiones de unidades en tres categ
 2. Dentro de config.json, en la carpeta resources en main.java del proyecto, modifica lo siguiente:
 ```
   {
-  "api_key": "TU_CLAVE_DE_API"
+  "API_KEY": "YOUR_API_KEY"
   }
   ```
-  Reemplaza TU_CLAVE_DE_API con tu clave de API obtenida de ExchangeRate-API.
+  Reemplaza YOUR_API_KEY con tu clave API obtenida de ExchangeRate-API.
 
 ## Requisitos del Sistema
 - Java JDK 8 o superior.

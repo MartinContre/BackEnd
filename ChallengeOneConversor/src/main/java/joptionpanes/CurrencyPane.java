@@ -31,6 +31,7 @@ public class CurrencyPane extends BasePane {
         logger.info(String.format("Performing currency conversion for %s %s to %s",conversion.getInitialValue(), conversion.getCurrentUnit(), conversion.getTargetUnit()));
         conversion.setConvertedValue(ApiUtils.getConversionResultFromRequest(conversion));
         String initialValue = NumberUtils.numberFormat(conversion.getInitialValue());
+
         String result = String.format("%s %s es igual a %s %s", initialValue, conversion.getCurrentUnit(), conversion.getConvertedValue(), conversion.getTargetUnit());
         logger.info(result);
         return result;

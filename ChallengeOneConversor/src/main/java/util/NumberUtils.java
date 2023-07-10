@@ -18,7 +18,7 @@ public class NumberUtils {
      * @return The formatted number as a string.
      */
     public static String numberFormat(double val) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.####");
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
         decimalFormat.setGroupingUsed(false);
 
         String formattedNumber = decimalFormat.format(val);
