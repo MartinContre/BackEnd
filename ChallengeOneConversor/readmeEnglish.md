@@ -8,6 +8,8 @@
 
 This Java project allows you to perform unit conversions in three categories: Currency, Temperature, and Length. It provides a graphical user interface to select the conversion type and perform the conversions interactively.
 
+[![Example use and work video](src/media/Frame.jpg)](src/media/UseExample.mp4)
+
 ## Features
 - Welcome screen that prompts the user for confirmation to start.
 - Menu for selecting the type of unit to convert: Currency, Temperature, or Length.
