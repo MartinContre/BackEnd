@@ -6,7 +6,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.logging.log4j/log4j-core.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.logging.log4j/log4j-core)
 
 
-[![Video de ejemplo de uso y funcionamiento](src/media/Frame.jpg)](src/media/UseExample.mp4)
+[![Video de ejemplo de uso y funcionamiento](src/media/Frame.jpg)](https://clipchamp.com/watch/BB20EvXHsHH)
 
 Este proyecto en Java te permite realizar conversiones de unidades en tres categorías: Divisas, Temperatura y Longitud. Proporciona una interfaz gráfica de usuario para seleccionar el tipo de conversión y realizar las conversiones de manera interactiva.
 
